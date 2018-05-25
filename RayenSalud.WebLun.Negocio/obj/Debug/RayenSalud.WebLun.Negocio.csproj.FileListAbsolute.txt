@@ -1,0 +1,14 @@
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Negocio\bin\Debug\RayenSalud.WebLun.Negocio.dll
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Negocio\bin\Debug\RayenSalud.WebLun.Negocio.pdb
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Negocio\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Negocio\bin\Debug\NLog.dll
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Negocio\bin\Debug\NLog.Extensions.Logging.dll
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Negocio\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Negocio\bin\Debug\NLog.xml
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Negocio\bin\Debug\NLog.Extensions.Logging.xml
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Negocio\obj\Debug\RayenSalud.WebLun.Negocio.csprojResolveAssemblyReference.cache
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Negocio\obj\Debug\RayenSalud.WebLun.Negocio.csproj.CoreCompileInputs.cache
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Negocio\obj\Debug\RayenSalud.WebLun.Negocio.dll
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Negocio\obj\Debug\RayenSalud.WebLun.Negocio.pdb
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Negocio\bin\Debug\RayenSalud.WebLun.Entidad.dll
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Negocio\bin\Debug\RayenSalud.WebLun.Entidad.pdb

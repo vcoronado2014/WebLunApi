@@ -1,0 +1,6 @@
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Entidad\bin\Debug\RayenSalud.WebLun.Entidad.dll
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Entidad\bin\Debug\RayenSalud.WebLun.Entidad.pdb
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Entidad\obj\Debug\RayenSalud.WebLun.Entidad.csproj.CoreCompileInputs.cache
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Entidad\obj\Debug\RayenSalud.WebLun.Entidad.dll
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Entidad\obj\Debug\RayenSalud.WebLun.Entidad.pdb
+F:\NUEVO_DESARROLLO\NUEVA_API_WEB_LUN\RayenSalud.WebLun.Api\RayenSalud.WebLun.Entidad\obj\Debug\RayenSalud.WebLun.Entidad.csprojResolveAssemblyReference.cache
