@@ -10,6 +10,7 @@ namespace RayenSalud.WebLun.Entidad
     {
         #region Propiedades
 
+        public string TokenSession { get; set; }
         public int _encoInd;
         public int EncoId
         {

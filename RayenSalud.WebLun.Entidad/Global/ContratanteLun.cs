@@ -12,6 +12,9 @@ namespace RayenSalud.WebLun.Entidad.Global
         {
         }
         #region propiedades
+        public Entidad.Global.RebalseLun RebalseLun { get; set; }
+        public string NombreRegion { get; set; }
+        public string NombreComuna { get; set; }
         private string _razonSocial;
         public string RazonSocial
         {
@@ -66,6 +69,11 @@ namespace RayenSalud.WebLun.Entidad.Global
             get { return _cantidadAviso; }
             set { _cantidadAviso = value; }
         }
+        //se agrega tipo Contratante
+        //en este caso LicenciaNombrada = 0, LicenciaReemplazable= 1, LicenciaOnDemand = 2
+        public int TipoContratante { get; set; }
+        public string TipoContrato { get; set; }
+
         #endregion
     }
 }

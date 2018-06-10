@@ -20,6 +20,8 @@ namespace RayenSalud.WebLun.Api.Controllers
         Registro_modificado_con_exito = 9,
         Registro_desactivado_con_exito = 10,
         Registro_eliminado_con_exito = 11,
-        Excede_maximo_permitido_de_usuarios = 12
+        Excede_maximo_permitido_de_usuarios = 12,
+        Token_invalido = 13,
+        Clave_creada_con_exito = 14
     }
 }

@@ -45,6 +45,7 @@
     <Compile Include="Global\ContratanteLun.cs" />
     <Compile Include="Global\HistorialEncargadoLun.cs" />
     <Compile Include="Global\HistorialSobrecupo.cs" />
+    <Compile Include="Global\LoginUsuario.cs" />
     <Compile Include="Global\RebalseLun.cs" />
     <Compile Include="Lun\RegistroLun.cs" />
     <Compile Include="Nodo.cs" />

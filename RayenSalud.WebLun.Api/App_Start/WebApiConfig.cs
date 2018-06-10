@@ -41,6 +41,17 @@ namespace RayenSalud.WebLun.Api
             );
             #endregion
 
+            #region  ValidarToken
+            config.Routes.MapHttpRoute(
+                name: "ValidarToken",
+                routeTemplate: "api/ValidarToken",
+                defaults: new
+                {
+                    controller = "ValidarToken"
+                }
+            );
+            #endregion
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

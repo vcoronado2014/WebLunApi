@@ -40,6 +40,7 @@ namespace RayenSalud.WebLun.Negocio.Global
                 int ACTIVO = rdr.GetOrdinal("ACTIVO");
                 int ELIMINADO = rdr.GetOrdinal("ELIMINADO");
                 int CANTIDAD_AVISO = rdr.GetOrdinal("CANTIDAD_AVISO");
+                int TIPO_CONTRATANTE = rdr.GetOrdinal("TIPO_CONTRATANTE");
                 try
                 {
                     while (rdr.Read())
@@ -57,6 +58,30 @@ namespace RayenSalud.WebLun.Negocio.Global
                         contratante.Activo = rdr.IsDBNull(ACTIVO) ? 0 : rdr.GetInt32(ACTIVO);
                         contratante.Eliminado = rdr.IsDBNull(ELIMINADO) ? 0 : rdr.GetInt32(ELIMINADO);
                         contratante.CantidadAviso = rdr.IsDBNull(CANTIDAD_AVISO) ? 0 : rdr.GetInt32(CANTIDAD_AVISO);
+                        contratante.TipoContratante = rdr.IsDBNull(TIPO_CONTRATANTE) ? 0 : rdr.GetInt32(TIPO_CONTRATANTE);
+                        if (contratante.TipoContratante == 0)
+                            contratante.TipoContrato = "Licencia Nombrada";
+                        if (contratante.TipoContratante == 1)
+                            contratante.TipoContrato = "Licencia Reutilizable";
+                        if (contratante.TipoContratante == 2)
+                            contratante.TipoContrato = "Licencia On Demand";
+                        //obtenemos el rebalse de la entidad contratante
+                        Entidad.Global.RebalseLun rebalse = Negocio.Global.Global.ObtenerRebalseLunPorEncoId(contratante.Id);
+                        if (rebalse != null)
+                        {
+                            contratante.RebalseLun = new Entidad.Global.RebalseLun();
+                            contratante.RebalseLun = rebalse;
+                        }
+                        Entidad.Territorio.Region region = Negocio.Territorio.Territorio.ObtenerRegionPorId(contratante.IdRegion);
+                        if (region != null && region.Id > 0)
+                        {
+                            contratante.NombreRegion = region.Nombre;
+                        }
+                        Entidad.Territorio.Comuna comuna = Negocio.Territorio.Territorio.ObtenerComunaPorId(contratante.IdComuna);
+                        if (comuna != null && comuna.Id > 0)
+                        {
+                            contratante.NombreComuna = comuna.Nombre;
+                        }
                         listaDevolver.Add(contratante);
                     }
 
@@ -124,6 +149,7 @@ namespace RayenSalud.WebLun.Negocio.Global
                 int ACTIVO = rdr.GetOrdinal("ACTIVO");
                 int ELIMINADO = rdr.GetOrdinal("ELIMINADO");
                 int CANTIDAD_AVISO = rdr.GetOrdinal("CANTIDAD_AVISO");
+                int TIPO_CONTRATO = rdr.GetOrdinal("TIPO_CONTRATANTE");
                 try
                 {
                     while (rdr.Read())
@@ -141,6 +167,30 @@ namespace RayenSalud.WebLun.Negocio.Global
                         contratante.Activo = rdr.IsDBNull(ACTIVO) ? 0 : rdr.GetInt32(ACTIVO);
                         contratante.Eliminado = rdr.IsDBNull(ELIMINADO) ? 0 : rdr.GetInt32(ELIMINADO);
                         contratante.CantidadAviso = rdr.IsDBNull(CANTIDAD_AVISO) ? 0 : rdr.GetInt32(CANTIDAD_AVISO);
+                        contratante.TipoContratante = rdr.IsDBNull(TIPO_CONTRATO) ? 0 : rdr.GetInt32(TIPO_CONTRATO);
+                        if (contratante.TipoContratante == 0)
+                            contratante.TipoContrato = "Licencia Nombrada";
+                        if (contratante.TipoContratante == 1)
+                            contratante.TipoContrato = "Licencia Reutilizable";
+                        if (contratante.TipoContratante == 2)
+                            contratante.TipoContrato = "Licencia On Demand";
+                        //obtenemos el rebalse de la entidad contratante
+                        Entidad.Global.RebalseLun rebalse = Negocio.Global.Global.ObtenerRebalseLunPorEncoId(contratante.Id);
+                        if (rebalse != null)
+                        {
+                            contratante.RebalseLun = new Entidad.Global.RebalseLun();
+                            contratante.RebalseLun = rebalse;
+                        }
+                        Entidad.Territorio.Region region = Negocio.Territorio.Territorio.ObtenerRegionPorId(contratante.IdRegion);
+                        if (region != null && region.Id > 0)
+                        {
+                            contratante.NombreRegion = region.Nombre;
+                        }
+                        Entidad.Territorio.Comuna comuna = Negocio.Territorio.Territorio.ObtenerComunaPorId(contratante.IdComuna);
+                        if (comuna != null && comuna.Id > 0)
+                        {
+                            contratante.NombreComuna = comuna.Nombre;
+                        }
                         listaDevolver.Add(contratante);
                     }
                 }
@@ -186,6 +236,7 @@ namespace RayenSalud.WebLun.Negocio.Global
                 int ACTIVO = rdr.GetOrdinal("ACTIVO");
                 int ELIMINADO = rdr.GetOrdinal("ELIMINADO");
                 int CANTIDAD_AVISO = rdr.GetOrdinal("CANTIDAD_AVISO");
+                int TIPO_CONTRATANTE = rdr.GetOrdinal("TIPO_CONTRATANTE");
                 try
                 {
                     while (rdr.Read())
@@ -203,6 +254,30 @@ namespace RayenSalud.WebLun.Negocio.Global
                         contratante.Activo = rdr.IsDBNull(ACTIVO) ? 0 : rdr.GetInt32(ACTIVO);
                         contratante.Eliminado = rdr.IsDBNull(ELIMINADO) ? 0 : rdr.GetInt32(ELIMINADO);
                         contratante.CantidadAviso = rdr.IsDBNull(CANTIDAD_AVISO) ? 0 : rdr.GetInt32(CANTIDAD_AVISO);
+                        contratante.TipoContratante = rdr.IsDBNull(TIPO_CONTRATANTE) ? 0 : rdr.GetInt32(TIPO_CONTRATANTE);
+                        if (contratante.TipoContratante == 0)
+                            contratante.TipoContrato = "Licencia Nombrada";
+                        if (contratante.TipoContratante == 1)
+                            contratante.TipoContrato = "Licencia Reutilizable";
+                        if (contratante.TipoContratante == 2)
+                            contratante.TipoContrato = "Licencia On Demand";
+                        //obtenemos el rebalse de la entidad contratante
+                        Entidad.Global.RebalseLun rebalse = Negocio.Global.Global.ObtenerRebalseLunPorEncoId(contratante.Id);
+                        if (rebalse != null)
+                        {
+                            contratante.RebalseLun = new Entidad.Global.RebalseLun();
+                            contratante.RebalseLun = rebalse;
+                        }
+                        Entidad.Territorio.Region region = Negocio.Territorio.Territorio.ObtenerRegionPorId(contratante.IdRegion);
+                        if (region != null && region.Id > 0)
+                        {
+                            contratante.NombreRegion = region.Nombre;
+                        }
+                        Entidad.Territorio.Comuna comuna = Negocio.Territorio.Territorio.ObtenerComunaPorId(contratante.IdComuna);
+                        if (comuna != null && comuna.Id > 0)
+                        {
+                            contratante.NombreComuna = comuna.Nombre;
+                        }
                         //listaDevolver.Add(contratante);
                     }
                 }
@@ -500,6 +575,121 @@ namespace RayenSalud.WebLun.Negocio.Global
         }
         #endregion
 
+        public const string SP_INSERTAR_LGU = "LGU0001";
+        public const string SP_MODIFICA_LGU = "LGU0002";
+        public const string SP_MODIFICA_ENCO = "ENCO0001";
+        //nuevos metodos 
+        public static bool InsertarLGU(string nombreUsuario, int ecolId, string rol, string token)
+        {
+            bool retorno = false;
+            //cadena de conexion a la base de datos
+            string conexionStr = ConfigurationManager.ConnectionStrings["BDWebLunConnectionString"].ConnectionString;
+            SqlConnection conn = new SqlConnection(conexionStr);
+            //creando el comando que se va a conectar a la base de datos
+            SqlCommand cmd = new SqlCommand(SP_INSERTAR_LGU, conn);
+            //se especifica que es un procedimiento almacenado
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            //le pasamos los valores al procedimiento almacenado
+            cmd.Parameters.AddWithValue("@NOMBRE_USUARIO", nombreUsuario);
+            cmd.Parameters.AddWithValue("@ECOL_ID", ecolId);
+            cmd.Parameters.AddWithValue("@ROL", rol);
+            cmd.Parameters.AddWithValue("@TOKEN", token);
+            //abrimos la conexión a la base de datos
+            conn.Open();
+            try
+            {
+                SqlDataReader rdr = cmd.ExecuteReader();
+                retorno = true;
+            }
+            catch(Exception ex)
+            {
+                Negocio.Utiles.NLogs(ex);
+            }
+            finally
+            {
+                //cuando llegamos al final cerramos la conexion a la base datos
+                conn.Close();
+            }
+
+            return retorno;
+        }
+
+        public static bool ModificarLGU(string nombreUsuario, int ecolId, string rol, string token, string tokenNuevo)
+        {
+            bool retorno = false;
+            //cadena de conexion a la base de datos
+            string conexionStr = ConfigurationManager.ConnectionStrings["BDWebLunConnectionString"].ConnectionString;
+            SqlConnection conn = new SqlConnection(conexionStr);
+            //creando el comando que se va a conectar a la base de datos
+            SqlCommand cmd = new SqlCommand(SP_MODIFICA_LGU, conn);
+            //se especifica que es un procedimiento almacenado
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            //le pasamos los valores al procedimiento almacenado
+            cmd.Parameters.AddWithValue("@NOMBRE_USUARIO", nombreUsuario);
+            cmd.Parameters.AddWithValue("@ECOL_ID", ecolId);
+            cmd.Parameters.AddWithValue("@ROL", rol);
+            cmd.Parameters.AddWithValue("@TOKEN", token);
+            cmd.Parameters.AddWithValue("@TOKEN_NUEVO", tokenNuevo);
+            //abrimos la conexión a la base de datos
+            conn.Open();
+            try
+            {
+                SqlDataReader rdr = cmd.ExecuteReader();
+                retorno = true;
+            }
+            catch (Exception ex)
+            {
+                Negocio.Utiles.NLogs(ex);
+            }
+            finally
+            {
+                //cuando llegamos al final cerramos la conexion a la base datos
+                conn.Close();
+            }
+
+            return retorno;
+        }
+
+        public static bool ModificarENCO(string empleador, int idTipoContrato, int idRegion, int idComuna, int ecolId, string direccion, string numero, string restoDireccion, int sobrecupo, int totalLicencias)
+        {
+            bool retorno = false;
+            //cadena de conexion a la base de datos
+            string conexionStr = ConfigurationManager.ConnectionStrings["BDWebLunConnectionString"].ConnectionString;
+            SqlConnection conn = new SqlConnection(conexionStr);
+            //creando el comando que se va a conectar a la base de datos
+            SqlCommand cmd = new SqlCommand(SP_MODIFICA_ENCO, conn);
+            //se especifica que es un procedimiento almacenado
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            //le pasamos los valores al procedimiento almacenado
+            cmd.Parameters.AddWithValue("@EMPLEADOR", empleador);
+            cmd.Parameters.AddWithValue("@ID_TIPO_CONTRATO", idTipoContrato);
+            cmd.Parameters.AddWithValue("@ID_REGION", idRegion);
+            cmd.Parameters.AddWithValue("@ID_COMUNA", idComuna);
+            cmd.Parameters.AddWithValue("@ID_ECOL", ecolId);
+            cmd.Parameters.AddWithValue("@DIRECCION", direccion);
+            cmd.Parameters.AddWithValue("@NUMERO", numero);
+            cmd.Parameters.AddWithValue("@RESTO_DIRECCION", restoDireccion);
+            cmd.Parameters.AddWithValue("@SOBRECUPO", sobrecupo);
+            cmd.Parameters.AddWithValue("@TOTAL_LICENCIAS", totalLicencias);
+            //abrimos la conexión a la base de datos
+            conn.Open();
+            try
+            {
+                SqlDataReader rdr = cmd.ExecuteReader();
+                retorno = true;
+            }
+            catch (Exception ex)
+            {
+                Negocio.Utiles.NLogs(ex);
+            }
+            finally
+            {
+                //cuando llegamos al final cerramos la conexion a la base datos
+                conn.Close();
+            }
+
+            return retorno;
+        }
 
     }
 }
