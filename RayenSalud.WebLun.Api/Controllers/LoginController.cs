@@ -187,94 +187,8 @@ namespace RayenSalud.WebLun.Api.Controllers
                 if (esValido)
                 {
                     //ahora nos traemos a los usuarios de la entidad contratante o bien a todo si el rol es Super Administrador
-                    List<Usuarios> userlist = new List<Usuarios>();
-                    MembershipUserCollection listadeUsuarios = Membership.GetAllUsers();
-                    foreach (MembershipUser user in listadeUsuarios)
-                    {
-                        //solo los de la app, ya que existen usuarios de vio salud aca
-                        string[] rolesEvaluar = Roles.GetRolesForUser(user.UserName);
-                        if (Roles.IsUserInRole(user.UserName, "Administrador Lun") ||
-                        Roles.IsUserInRole(user.UserName, "Administrador Web") ||
-                        Roles.IsUserInRole(user.UserName, "Consultador Lun") ||
-                        Roles.IsUserInRole(user.UserName, "Super Administrador"))
-                        {
-                            Usuarios us = new Usuarios();
-                            string[] roles = Roles.GetRolesForUser(user.UserName);
-
-                            us.Emmail = user.Email;
-                            us.NombreUsuario = user.UserName;
-                            us.Aprobado = user.IsApproved;
-                            //******************************************
-                            ProfileBase prof = ProfileBase.Create(user.UserName);
-
-                            if (prof != null)
-                            {
-                                //asociar los elementos necesarios
-                                us.EncoId = (int)prof.GetPropertyValue("EncoId");
-                                us.Rut = (string)prof.GetPropertyValue("Rut");
-                                us.Nombres = (string)prof.GetPropertyValue("Nombres");
-                                us.ApellidoPaterno = (string)prof.GetPropertyValue("ApellidoPaterno");
-                                us.ApellidoMaterno = (string)prof.GetPropertyValue("ApellidoMaterno");
-                                us.Direccion = (string)prof.GetPropertyValue("Direccion");
-                                us.RestoDireccion = (string)prof.GetPropertyValue("RestoDireccion");
-                                us.TelefonoFijo = (string)prof.GetPropertyValue("TelefonoFijo");
-                                us.TelefonoCelular = (string)prof.GetPropertyValue("TelefonoCelular");
-                                us.Estamento = (string)prof.GetPropertyValue("Estamento");
-                                us.Contratante = (string)prof.GetPropertyValue("Contratante");
-                                us.IdRegion = (int)prof.GetPropertyValue("IdRegion");
-                                us.IdComuna = (int)prof.GetPropertyValue("IdComuna");
-                                us.VeReportes = (bool)prof.GetPropertyValue("VeReportes");
-                                us.NombreCompleto = us.Nombres + " " + us.ApellidoPaterno + " " + us.ApellidoMaterno;
-
-                            }
-                            if (us.VeReportes)
-                                us.VeReportesTexto = "Si";
-                            else
-                                us.VeReportesTexto = "No";
-                            //obtención de la region
-                            RayenSalud.WebLun.Entidad.Territorio.Region region = RayenSalud.WebLun.Negocio.Territorio.Territorio.ObtenerRegionPorId(us.IdRegion);
-                            if (region != null)
-                            {
-                                us.NombreRegion = region.Nombre;
-                            }
-                            RayenSalud.WebLun.Entidad.Territorio.Comuna comuna = RayenSalud.WebLun.Negocio.Territorio.Territorio.ObtenerComunaPorId(us.IdComuna);
-                            if (comuna != null)
-                            {
-                                us.NombreComuna = comuna.Nombre;
-                            }
-                            RayenSalud.WebLun.Entidad.Global.ContratanteLun contratante = new RayenSalud.WebLun.Entidad.Global.ContratanteLun();
-                            //obtenemos el contratante por el nombre
-                            if (us.EncoId > 0)
-                            {
-                                contratante = RayenSalud.WebLun.Negocio.Global.Global.ObtenerContratanteLunPorId(us.EncoId);
-                            }
-
-                            if (contratante != null)
-                                us.Contratante = contratante.RazonSocial;
-
-                            us.RolesUsuarios = roles;
-                            if (roles != null)
-                            {
-                                if (roles.Length > 0)
-                                {
-                                    us.RolUsuario = roles[0];
-                                }
-                            }
-
-                            userlist.Add(us);
-
-                        }
-
-                    }
-                    //ACA EVALUAMOS
-                    if (userlist != null && userlist.Count > 0)
-                    {
-                        if (!esSuper)
-                        {
-                            userlist = userlist.FindAll(p => p.RolUsuario != "Super Administrador");
-                        }
-                        userlist = userlist.FindAll(p => p.EncoId == ecolIdInt);
-                    }
+                    List<Usuarios> userlist = Negocio.Usuarios.Usuarios.ObtenerUsuarios(rolStr, ecolId, usuario);
+                    //retorno de la información
                     httpResponse = ManejoMensajes.RetornaMensajeCorrecto(httpResponse, userlist);
                 }
                 else
@@ -283,118 +197,6 @@ namespace RayenSalud.WebLun.Api.Controllers
                 }
 
 
-
-            }
-
-            return httpResponse;
-        }
-
-        [System.Web.Http.AcceptVerbs("GET")]
-        public HttpResponseMessage Get([FromUri]string rol)
-        {
-            HttpResponseMessage httpResponse = new HttpResponseMessage();
-            if (rol == "")
-            {
-                httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Rol Id");
-            }
-            else
-            {
-                string rolStr = rol;
-                bool esSuper = false;
-                if (rolStr == "Super Administrador")
-                {
-                    esSuper = true;
-                }
-                
-                //ahora nos traemos a los usuarios de la entidad contratante o bien a todo si el rol es Super Administrador
-                List<Usuarios> userlist = new List<Usuarios>();
-                MembershipUserCollection listadeUsuarios = Membership.GetAllUsers();
-                foreach (MembershipUser user in listadeUsuarios)
-                {
-                    //solo los de la app, ya que existen usuarios de vio salud aca
-                    string[] rolesEvaluar = Roles.GetRolesForUser(user.UserName);
-                    if (Roles.IsUserInRole(user.UserName, "Administrador Lun") ||
-                    Roles.IsUserInRole(user.UserName, "Administrador Web") ||
-                    Roles.IsUserInRole(user.UserName, "Consultador Lun") ||
-                    Roles.IsUserInRole(user.UserName, "Super Administrador"))
-                    {
-                        Usuarios us = new Usuarios();
-                        string[] roles = Roles.GetRolesForUser(user.UserName);
-
-                        us.Emmail = user.Email;
-                        us.NombreUsuario = user.UserName;
-                        us.Aprobado = user.IsApproved;
-                        //******************************************
-                        ProfileBase prof = ProfileBase.Create(user.UserName);
-
-                        if (prof != null)
-                        {
-                            //asociar los elementos necesarios
-                            us.EncoId = (int)prof.GetPropertyValue("EncoId");
-                            us.Rut = (string)prof.GetPropertyValue("Rut");
-                            us.Nombres = (string)prof.GetPropertyValue("Nombres");
-                            us.ApellidoPaterno = (string)prof.GetPropertyValue("ApellidoPaterno");
-                            us.ApellidoMaterno = (string)prof.GetPropertyValue("ApellidoMaterno");
-                            us.Direccion = (string)prof.GetPropertyValue("Direccion");
-                            us.RestoDireccion = (string)prof.GetPropertyValue("RestoDireccion");
-                            us.TelefonoFijo = (string)prof.GetPropertyValue("TelefonoFijo");
-                            us.TelefonoCelular = (string)prof.GetPropertyValue("TelefonoCelular");
-                            us.Estamento = (string)prof.GetPropertyValue("Estamento");
-                            us.Contratante = (string)prof.GetPropertyValue("Contratante");
-                            us.IdRegion = (int)prof.GetPropertyValue("IdRegion");
-                            us.IdComuna = (int)prof.GetPropertyValue("IdComuna");
-                            us.VeReportes = (bool)prof.GetPropertyValue("VeReportes");
-                            us.NombreCompleto = us.Nombres + " " + us.ApellidoPaterno + " " + us.ApellidoMaterno;
-
-                        }
-                        if (us.VeReportes)
-                            us.VeReportesTexto = "Si";
-                        else
-                            us.VeReportesTexto = "No";
-                        //obtención de la region
-                        RayenSalud.WebLun.Entidad.Territorio.Region region = RayenSalud.WebLun.Negocio.Territorio.Territorio.ObtenerRegionPorId(us.IdRegion);
-                        if (region != null)
-                        {
-                            us.NombreRegion = region.Nombre;
-                        }
-                        RayenSalud.WebLun.Entidad.Territorio.Comuna comuna = RayenSalud.WebLun.Negocio.Territorio.Territorio.ObtenerComunaPorId(us.IdComuna);
-                        if (comuna != null)
-                        {
-                            us.NombreComuna = comuna.Nombre;
-                        }
-                        RayenSalud.WebLun.Entidad.Global.ContratanteLun contratante = new RayenSalud.WebLun.Entidad.Global.ContratanteLun();
-                        //obtenemos el contratante por el nombre
-                        if (us.EncoId > 0)
-                        {
-                            contratante = RayenSalud.WebLun.Negocio.Global.Global.ObtenerContratanteLunPorId(us.EncoId);
-                        }
-
-                        if (contratante != null)
-                            us.Contratante = contratante.RazonSocial;
-
-                        us.RolesUsuarios = roles;
-                        if (roles != null)
-                        {
-                            if (roles.Length > 0)
-                            {
-                                us.RolUsuario = roles[0];
-                            }
-                        }
-
-                        userlist.Add(us);
-
-                    }
-
-                }
-                //ACA EVALUAMOS
-                if (userlist != null && userlist.Count > 0)
-                {
-                    if (!esSuper)
-                    {
-                        userlist = userlist.FindAll(p => p.RolUsuario != "Super Administrador");
-                    }
-                }
-                httpResponse = ManejoMensajes.RetornaMensajeCorrecto(httpResponse, userlist);
 
             }
 
@@ -444,7 +246,7 @@ namespace RayenSalud.WebLun.Api.Controllers
                         MembershipUser us = Membership.GetUser(usuarioEliminar);
 
 
-                        eliminado = Membership.DeleteUser(usuarioEliminar, true);
+                        eliminado = Negocio.Usuarios.Usuarios.EliminarUsuario(usuarioEliminar);
                         //inserción registro en el historial
                         RayenSalud.WebLun.Entidad.Global.HistorialEncargadoLun historial = new Entidad.Global.HistorialEncargadoLun();
                         historial.TipoMovimiento = 4;//eliminar
@@ -475,9 +277,7 @@ namespace RayenSalud.WebLun.Api.Controllers
         }
 
         [System.Web.Http.AcceptVerbs("PUT")]
-        public HttpResponseMessage Put(
-            dynamic DynamicClass
-            )
+        public HttpResponseMessage Put(dynamic DynamicClass)
         {
             HttpResponseMessage httpResponse = new HttpResponseMessage();
 
@@ -610,83 +410,9 @@ namespace RayenSalud.WebLun.Api.Controllers
                         Membership.CreateUser(nombreUsuario, password, email, pregunta, respuesta, aprobado, out status);
                         if (status == MembershipCreateStatus.Success)
                         {
-                            #region creacion de usuario
-                            //todo ok, seguimos
-                            //lo volvemos a recuperar
-                            MembershipUser mu = Membership.GetUser(nombreUsuario);
-                            //agregamos los roles al usuario
-                            Roles.AddUserToRoles(mu.UserName, roles);
-                            //actualizamos el usuario
-                            Membership.UpdateUser(mu);
-                            //ahora los perfiles
-                            ProfileBase prof = ProfileBase.Create(mu.UserName);
-                            prof.SetPropertyValue("EncoId", int.Parse(ecolId));
-                            prof.SetPropertyValue("ApellidoPaterno", apellidoPaterno);
-                            prof.SetPropertyValue("ApellidoMaterno", apellidoMaterno);
-                            prof.SetPropertyValue("Direccion", direccion);
-                            prof.SetPropertyValue("IdRegion", int.Parse(idRegion));
-                            prof.SetPropertyValue("IdComuna", int.Parse(idComuna));
-                            prof.SetPropertyValue("Nombres", nombres);
-                            prof.SetPropertyValue("Rut", rut);
-                            prof.SetPropertyValue("TelefonoCelular", telefonoCelular);
-                            prof.SetPropertyValue("TelefonoFijo", telefonoFijo);
-                            prof.SetPropertyValue("Estamento", estamento);
-                            prof.SetPropertyValue("RestoDireccion", restoDireccion);
-                            prof.SetPropertyValue("VeReportes", veReportes);
-                            //para obtener la entidad contratante
-                            prof.SetPropertyValue("Contratante", nombreContratante);
-                            //ahora guardamos el perfil
-                            prof.Save();
-                            //ahora guardamos al historial
-                            RayenSalud.WebLun.Entidad.Global.HistorialEncargadoLun historial =
-                                    new RayenSalud.WebLun.Entidad.Global.HistorialEncargadoLun();
-                            historial.TipoMovimiento = 1;//crear
-                            historial.FechaRegistro = DateTime.Now;
-                            historial.RunEncargado = rut;
-                            historial.UsuarioCreador = usuarioCreador;
-                            historial.UserEncargado = nombreUsuario;
-                            RayenSalud.WebLun.Negocio.Global.Global.InsertarRegistroHistorialLun(historial);
-                            #endregion
-                            #region nueva entidad a devolver
-                            Entidad.Usuarios usRe = new Entidad.Usuarios();
-                            usRe.UsuarioCreador = usuarioCreador;
-                            usRe.VeReportes = veReportes;
-                            if (veReportes)
-                                usRe.VeReportesTexto = "Si";
-                            else
-                                usRe.VeReportesTexto = "No";
-
-                            usRe.ApellidoMaterno = apellidoMaterno;
-                            usRe.ApellidoPaterno = apellidoPaterno;
-                            usRe.Aprobado = true;
-                            usRe.Contratante = nombreContratante;
-                            usRe.Direccion = direccion;
-                            usRe.Emmail = email;
-                            usRe.EncoId = int.Parse(ecolId);
-                            usRe.Estamento = estamento;
-                            usRe.IdComuna = int.Parse(idComuna);
-                            usRe.IdRegion = int.Parse(idRegion);
-                            usRe.NombreCompleto = nombres + " " + apellidoPaterno + " " + apellidoMaterno;
-                            //usRe.NombreComuna = 
-                            RayenSalud.WebLun.Entidad.Territorio.Region region = RayenSalud.WebLun.Negocio.Territorio.Territorio.ObtenerRegionPorId(int.Parse(idRegion));
-                            if (region != null)
-                            {
-                                usRe.NombreRegion = region.Nombre;
-                            }
-                            RayenSalud.WebLun.Entidad.Territorio.Comuna comuna = RayenSalud.WebLun.Negocio.Territorio.Territorio.ObtenerComunaPorId(int.Parse(idComuna));
-                            if (comuna != null)
-                            {
-                                usRe.NombreComuna = comuna.Nombre;
-                            }
-                            usRe.Nombres = nombres;
-                            usRe.NombreUsuario = nombreUsuario;
-                            usRe.Password = password;
-                            usRe.Pregunta = pregunta;
-                            usRe.Respuesta = respuesta;
-                            usRe.RestoDireccion = restoDireccion;
-                            usRe.RolesUsuarios = roles;
-                            usRe.RolUsuario = roles[0].ToString();
-                            #endregion
+                            Entidad.Usuarios usRe = Negocio.Usuarios.Usuarios.CrearUsuario(nombreUsuario, roles, ecolId, apellidoPaterno, apellidoMaterno, direccion,
+                                idRegion, idComuna, nombres, rut, telefonoCelular, telefonoFijo, estamento, restoDireccion, veReportes, nombreContratante, usuarioCreador,
+                                email, password, pregunta, respuesta);
                             //todo correcto, retornamos la data
                             httpResponse = ManejoMensajes.RetornaMensajeCorrecto(httpResponse, usRe, EnumMensajes.Registro_creado_con_exito);
 
@@ -748,78 +474,10 @@ namespace RayenSalud.WebLun.Api.Controllers
                     }
                     //actualizamos al usuario
                     Membership.UpdateUser(us);
-                    //ahora los perfiles
-                    ProfileBase prof = ProfileBase.Create(us.UserName);
-                    prof.SetPropertyValue("EncoId", int.Parse(ecolId));
-                    prof.SetPropertyValue("ApellidoPaterno", apellidoPaterno);
-                    prof.SetPropertyValue("ApellidoMaterno", apellidoMaterno);
-                    prof.SetPropertyValue("Direccion", direccion);
-                    prof.SetPropertyValue("IdRegion", int.Parse(idRegion));
-                    prof.SetPropertyValue("IdComuna", int.Parse(idComuna));
-                    prof.SetPropertyValue("Nombres", nombres);
-                    prof.SetPropertyValue("Rut", rut);
-                    prof.SetPropertyValue("TelefonoCelular", telefonoCelular);
-                    prof.SetPropertyValue("TelefonoFijo", telefonoFijo);
-                    prof.SetPropertyValue("Estamento", estamento);
-                    prof.SetPropertyValue("RestoDireccion", restoDireccion);
-                    prof.SetPropertyValue("VeReportes", veReportes);
-                    //para obtener la entidad contratante
-                    prof.SetPropertyValue("Contratante", nombreContratante);
-                    //ahora guardamos el perfil
-                    prof.Save();
-                    //ahora historial
-                    RayenSalud.WebLun.Entidad.Global.HistorialEncargadoLun historial =
-                        new RayenSalud.WebLun.Entidad.Global.HistorialEncargadoLun();
-                    if (modificacionClave)
-                        historial.TipoMovimiento = 3;//modificacion clave
-                    else
-                        historial.TipoMovimiento = 2;//modificacion usuario
-                    historial.FechaRegistro = DateTime.Now;
-                    historial.RunEncargado = rut;
-                    historial.UsuarioCreador = usuarioCreador;
-                    historial.UserEncargado = nombreUsuario;
-                    RayenSalud.WebLun.Negocio.Global.Global.InsertarRegistroHistorialLun(historial);
-                    //hasta aca tgodo bien, por lo tanto hay que devolver un usuario con todos los elementos modificados
-                    #region nueva entidad a devolver
-                    Entidad.Usuarios usRe = new Entidad.Usuarios();
-                    usRe.UsuarioCreador = usuarioCreador;
-                    usRe.VeReportes = veReportes;
-                    if (veReportes)
-                        usRe.VeReportesTexto = "Si";
-                    else
-                        usRe.VeReportesTexto = "No";
-
-                    usRe.ApellidoMaterno = apellidoMaterno;
-                    usRe.ApellidoPaterno = apellidoPaterno;
-                    usRe.Aprobado = true;
-                    usRe.Contratante = nombreContratante;
-                    usRe.Direccion = direccion;
-                    usRe.Emmail = email;
-                    usRe.EncoId = int.Parse(ecolId);
-                    usRe.Estamento = estamento;
-                    usRe.IdComuna = int.Parse(idComuna);
-                    usRe.IdRegion = int.Parse(idRegion);
-                    usRe.NombreCompleto = nombres + " " + apellidoPaterno + " " + apellidoMaterno;
-                    //usRe.NombreComuna = 
-                    RayenSalud.WebLun.Entidad.Territorio.Region region = RayenSalud.WebLun.Negocio.Territorio.Territorio.ObtenerRegionPorId(int.Parse(idRegion));
-                    if (region != null)
-                    {
-                        usRe.NombreRegion = region.Nombre;
-                    }
-                    RayenSalud.WebLun.Entidad.Territorio.Comuna comuna = RayenSalud.WebLun.Negocio.Territorio.Territorio.ObtenerComunaPorId(int.Parse(idComuna));
-                    if (comuna != null)
-                    {
-                        usRe.NombreComuna = comuna.Nombre;
-                    }
-                    usRe.Nombres = nombres;
-                    usRe.NombreUsuario = nombreUsuario;
-                    usRe.Password = password;
-                    usRe.Pregunta = pregunta;
-                    usRe.Respuesta = respuesta;
-                    usRe.RestoDireccion = restoDireccion;
-                    usRe.RolesUsuarios = roles;
-                    usRe.RolUsuario = roles[0].ToString();
-                    #endregion
+                    //pasar us y los demas parametros
+                    Entidad.Usuarios usRe = Negocio.Usuarios.Usuarios.ModificarUsuario(us, ecolId, apellidoPaterno, apellidoMaterno, direccion, idRegion,
+                        idComuna, nombres, rut, telefonoCelular, telefonoFijo, estamento, restoDireccion, veReportes, nombreContratante, modificacionClave,
+                        nombreUsuario, password, pregunta, respuesta, roles, email, usuarioCreador);
 
                     if (modificacionClave)
                         httpResponse = ManejoMensajes.RetornaMensajeCorrecto(httpResponse, usRe, EnumMensajes.Clave_creada_con_exito);
