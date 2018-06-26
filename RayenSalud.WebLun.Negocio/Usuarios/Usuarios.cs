@@ -218,6 +218,8 @@ namespace RayenSalud.WebLun.Negocio.Usuarios
                 usRe.RolesUsuarios = roles;
                 usRe.RolUsuario = roles[0].ToString();
                 usRe.Rut = rut;
+                usRe.TelefonoCelular = telefonoCelular;
+                usRe.TelefonoFijo = telefonoFijo;
                 #endregion
 
                 //manejo del caching
@@ -321,6 +323,8 @@ namespace RayenSalud.WebLun.Negocio.Usuarios
                 usRe.RolesUsuarios = roles;
                 usRe.RolUsuario = roles[0].ToString();
                 usRe.Rut = rut;
+                usRe.TelefonoCelular = telefonoCelular;
+                usRe.TelefonoFijo = telefonoFijo;
                 #endregion
 
                 //manejo del caching

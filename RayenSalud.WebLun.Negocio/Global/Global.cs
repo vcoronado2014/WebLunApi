@@ -60,11 +60,11 @@ namespace RayenSalud.WebLun.Negocio.Global
                         contratante.CantidadAviso = rdr.IsDBNull(CANTIDAD_AVISO) ? 0 : rdr.GetInt32(CANTIDAD_AVISO);
                         contratante.TipoContratante = rdr.IsDBNull(TIPO_CONTRATANTE) ? 0 : rdr.GetInt32(TIPO_CONTRATANTE);
                         if (contratante.TipoContratante == 0)
-                            contratante.TipoContrato = "Licencia Nombrada";
+                            contratante.TipoContrato = "Licencia de Usuario Nombrado";
                         if (contratante.TipoContratante == 1)
-                            contratante.TipoContrato = "Licencia Reutilizable";
+                            contratante.TipoContrato = "Licencia Reasignada";
                         if (contratante.TipoContratante == 2)
-                            contratante.TipoContrato = "Licencia On Demand";
+                            contratante.TipoContrato = "Licencia Concurrente";
                         //obtenemos el rebalse de la entidad contratante
                         Entidad.Global.RebalseLun rebalse = Negocio.Global.Global.ObtenerRebalseLunPorEncoId(contratante.Id);
                         if (rebalse != null)
@@ -169,11 +169,11 @@ namespace RayenSalud.WebLun.Negocio.Global
                         contratante.CantidadAviso = rdr.IsDBNull(CANTIDAD_AVISO) ? 0 : rdr.GetInt32(CANTIDAD_AVISO);
                         contratante.TipoContratante = rdr.IsDBNull(TIPO_CONTRATO) ? 0 : rdr.GetInt32(TIPO_CONTRATO);
                         if (contratante.TipoContratante == 0)
-                            contratante.TipoContrato = "Licencia Nombrada";
+                            contratante.TipoContrato = "Licencia de Usuario Nombrado";
                         if (contratante.TipoContratante == 1)
-                            contratante.TipoContrato = "Licencia Reutilizable";
+                            contratante.TipoContrato = "Licencia Reasignada";
                         if (contratante.TipoContratante == 2)
-                            contratante.TipoContrato = "Licencia On Demand";
+                            contratante.TipoContrato = "Licencia Concurrente";
                         //obtenemos el rebalse de la entidad contratante
                         Entidad.Global.RebalseLun rebalse = Negocio.Global.Global.ObtenerRebalseLunPorEncoId(contratante.Id);
                         if (rebalse != null)
@@ -256,11 +256,11 @@ namespace RayenSalud.WebLun.Negocio.Global
                         contratante.CantidadAviso = rdr.IsDBNull(CANTIDAD_AVISO) ? 0 : rdr.GetInt32(CANTIDAD_AVISO);
                         contratante.TipoContratante = rdr.IsDBNull(TIPO_CONTRATANTE) ? 0 : rdr.GetInt32(TIPO_CONTRATANTE);
                         if (contratante.TipoContratante == 0)
-                            contratante.TipoContrato = "Licencia Nombrada";
+                            contratante.TipoContrato = "Licencia de Usuario Nombrado";
                         if (contratante.TipoContratante == 1)
-                            contratante.TipoContrato = "Licencia Reutilizable";
+                            contratante.TipoContrato = "Licencia Reasignada";
                         if (contratante.TipoContratante == 2)
-                            contratante.TipoContrato = "Licencia On Demand";
+                            contratante.TipoContrato = "Licencia Concurrente";
                         //obtenemos el rebalse de la entidad contratante
                         Entidad.Global.RebalseLun rebalse = Negocio.Global.Global.ObtenerRebalseLunPorEncoId(contratante.Id);
                         if (rebalse != null)

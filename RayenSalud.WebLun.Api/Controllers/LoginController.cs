@@ -203,78 +203,78 @@ namespace RayenSalud.WebLun.Api.Controllers
             return httpResponse;
         }
 
-        [System.Web.Http.AcceptVerbs("DELETE")]
-        public HttpResponseMessage Delete([FromUri]string usuarioEliminar, [FromUri]string usuarioEliminador, [FromUri]string token, [FromUri]string ecolId)
-        {
-            HttpResponseMessage httpResponse = new HttpResponseMessage();
-            if (usuarioEliminador == "")
-            {
-                httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Usuario Eliminador");
-            }
-            else if (usuarioEliminar == "")
-            {
-                httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Usuario Eliminar");
-            }
-            else if (token == "")
-            {
-                httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Token");
-            }
-            else if (ecolId == "")
-            {
-                httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Ecol Id");
-            }
-            else
-            {
+        //[System.Web.Http.AcceptVerbs("DELETE")]
+        //public HttpResponseMessage Delete([FromUri]string usuarioEliminar, [FromUri]string usuarioEliminador, [FromUri]string token, [FromUri]string ecolId)
+        //{
+        //    HttpResponseMessage httpResponse = new HttpResponseMessage();
+        //    if (usuarioEliminador == "")
+        //    {
+        //        httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Usuario Eliminador");
+        //    }
+        //    else if (usuarioEliminar == "")
+        //    {
+        //        httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Usuario Eliminar");
+        //    }
+        //    else if (token == "")
+        //    {
+        //        httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Token");
+        //    }
+        //    else if (ecolId == "")
+        //    {
+        //        httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Ecol Id");
+        //    }
+        //    else
+        //    {
 
-                int ecolIdInt = int.Parse(ecolId);
+        //        int ecolIdInt = int.Parse(ecolId);
 
-                string tokenSession = token;
-                //ahora validamos el token
-                bool esValido = Negocio.Utiles.ValidarTokenSession(ecolIdInt, usuarioEliminador, tokenSession);
+        //        string tokenSession = token;
+        //        //ahora validamos el token
+        //        bool esValido = Negocio.Utiles.ValidarTokenSession(ecolIdInt, usuarioEliminador, tokenSession);
 
-                if (esValido)
-                {
+        //        if (esValido)
+        //        {
 
-                    bool eliminado = false;
-                    if ((Membership.FindUsersByName(usuarioEliminar).Count == 0))
-                    {
-                        httpResponse = ManejoMensajes.RetornaMensajeError(httpResponse, EnumMensajes.Usuario_no_existe);
-                    }
-                    else
-                    {
+        //            bool eliminado = false;
+        //            if ((Membership.FindUsersByName(usuarioEliminar).Count == 0))
+        //            {
+        //                httpResponse = ManejoMensajes.RetornaMensajeError(httpResponse, EnumMensajes.Usuario_no_existe);
+        //            }
+        //            else
+        //            {
 
-                        MembershipUser us = Membership.GetUser(usuarioEliminar);
-
-
-                        eliminado = Negocio.Usuarios.Usuarios.EliminarUsuario(usuarioEliminar);
-                        //inserción registro en el historial
-                        RayenSalud.WebLun.Entidad.Global.HistorialEncargadoLun historial = new Entidad.Global.HistorialEncargadoLun();
-                        historial.TipoMovimiento = 4;//eliminar
-                        historial.FechaRegistro = DateTime.Now;
-                        historial.RunEncargado = "";
-                        historial.UsuarioCreador = usuarioEliminador;
-                        historial.UserEncargado = usuarioEliminar;
-                        RayenSalud.WebLun.Negocio.Global.Global.InsertarRegistroHistorialLun(historial);
+        //                MembershipUser us = Membership.GetUser(usuarioEliminar);
 
 
-
-                    }
-
-                    //return retorno;
-
-                    httpResponse = ManejoMensajes.RetornaMensajeCorrecto(httpResponse, eliminado);
-                }
-                else
-                {
-                    httpResponse = ManejoMensajes.RetornaMensajeError(httpResponse, EnumMensajes.Token_invalido);
-                }
+        //                eliminado = Negocio.Usuarios.Usuarios.EliminarUsuario(usuarioEliminar);
+        //                //inserción registro en el historial
+        //                RayenSalud.WebLun.Entidad.Global.HistorialEncargadoLun historial = new Entidad.Global.HistorialEncargadoLun();
+        //                historial.TipoMovimiento = 4;//eliminar
+        //                historial.FechaRegistro = DateTime.Now;
+        //                historial.RunEncargado = "";
+        //                historial.UsuarioCreador = usuarioEliminador;
+        //                historial.UserEncargado = usuarioEliminar;
+        //                RayenSalud.WebLun.Negocio.Global.Global.InsertarRegistroHistorialLun(historial);
 
 
 
-            }
+        //            }
 
-            return httpResponse;
-        }
+        //            //return retorno;
+
+        //            httpResponse = ManejoMensajes.RetornaMensajeCorrecto(httpResponse, eliminado);
+        //        }
+        //        else
+        //        {
+        //            httpResponse = ManejoMensajes.RetornaMensajeError(httpResponse, EnumMensajes.Token_invalido);
+        //        }
+
+
+
+        //    }
+
+        //    return httpResponse;
+        //}
 
         [System.Web.Http.AcceptVerbs("PUT")]
         public HttpResponseMessage Put(dynamic DynamicClass)
@@ -490,6 +490,88 @@ namespace RayenSalud.WebLun.Api.Controllers
             //retornamos
             return httpResponse;
         }
+
+        [System.Web.Http.AcceptVerbs("GET")]
+        //[HttpPost]
+        public HttpResponseMessage Get([FromUri]string  usuarioEliminar, [FromUri]string usuarioEliminador, [FromUri]string token, [FromUri]string ecolId, [FromUri]string rol)
+        {
+            //string Input = JsonConvert.SerializeObject(DynamicClass);
+
+            //dynamic data = JObject.Parse(Input);
+
+            HttpResponseMessage httpResponse = new HttpResponseMessage();
+            if (usuarioEliminador == "")
+            {
+                httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Usuario Eliminador");
+            }
+            else if (usuarioEliminar == "")
+            {
+                httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Usuario Eliminar");
+            }
+            else if (token == "")
+            {
+                httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Token");
+            }
+            else if (ecolId == "")
+            {
+                httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Ecol Id");
+            }
+            else
+            {
+           
+
+                int ecolIdInt = int.Parse(ecolId);
+
+                string tokenSession = "";
+                //string usuarioEliminador ="";
+                //string usuarioEliminar = data.usuarioEliminar;
+                //ahora validamos el token
+                bool esValido = Negocio.Utiles.ValidarTokenSession(ecolIdInt, usuarioEliminador, token);
+
+                if (esValido)
+                {
+
+                    bool eliminado = false;
+                    if ((Membership.FindUsersByName(usuarioEliminar).Count == 0))
+                    {
+                        httpResponse = ManejoMensajes.RetornaMensajeError(httpResponse, EnumMensajes.Usuario_no_existe);
+                    }
+                    else
+                    {
+
+                        MembershipUser us = Membership.GetUser(usuarioEliminar);
+
+
+                        eliminado = Negocio.Usuarios.Usuarios.EliminarUsuario(usuarioEliminar);
+                        //inserción registro en el historial
+                        RayenSalud.WebLun.Entidad.Global.HistorialEncargadoLun historial = new Entidad.Global.HistorialEncargadoLun();
+                        historial.TipoMovimiento = 4;//eliminar
+                        historial.FechaRegistro = DateTime.Now;
+                        historial.RunEncargado = "";
+                        historial.UsuarioCreador = usuarioEliminador;
+                        historial.UserEncargado = usuarioEliminar;
+                        RayenSalud.WebLun.Negocio.Global.Global.InsertarRegistroHistorialLun(historial);
+
+
+
+                    }
+
+                    //return retorno;
+
+                    httpResponse = ManejoMensajes.RetornaMensajeCorrecto(httpResponse, eliminado);
+                }
+                else
+                {
+                    httpResponse = ManejoMensajes.RetornaMensajeError(httpResponse, EnumMensajes.Token_invalido);
+                }
+
+
+
+            }
+
+            return httpResponse;
+        }
+
 
     }
 }
