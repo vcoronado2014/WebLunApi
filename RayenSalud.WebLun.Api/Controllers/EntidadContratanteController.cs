@@ -32,14 +32,37 @@ namespace RayenSalud.WebLun.Api.Controllers
             {
                 httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Entidad Contratante");
             }
+            else if (data.Token == "")
+            {
+                httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Token Vacío");
+            }
+            else if (data.NombreUsuario == "")
+            {
+                httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Nombre Usuario Vacío");
+            }
             else
             {
                 try
-                { 
+                {
                     string ecolId = data.EcolId;
-                    List<Entidad.Global.ContratanteLun> lista = Negocio.Global.Global.ObtenerTodosContratantesLun();
-                    //correcto
-                    httpResponse = ManejoMensajes.RetornaMensajeCorrecto(httpResponse, lista);
+                    //agregados para validar el token
+                    string token = data.Token;
+                    string nombreUsuario = data.NombreUsuario;
+
+                    //aca vamos a validar el token antes que realice las otras operaciones
+                    bool esValido = Negocio.Utiles.ValidarTokenSession(int.Parse(ecolId), nombreUsuario, token);
+                    if (esValido)
+                    {
+                        
+                        List<Entidad.Global.ContratanteLun> lista = Negocio.Global.Global.ObtenerTodosContratantesLun();
+                        //correcto
+                        httpResponse = ManejoMensajes.RetornaMensajeCorrecto(httpResponse, lista);
+                    }
+                    else
+                    {
+                        //el token es incorrecto
+                        httpResponse = ManejoMensajes.RetornaMensajeError(httpResponse, EnumMensajes.Token_invalido);
+                    }
 
 
                 }
@@ -121,7 +144,15 @@ namespace RayenSalud.WebLun.Api.Controllers
             {
                 httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Total Licencias");
             }
-            
+            else if (data.Token == "")
+            {
+                httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Token Vacío");
+            }
+            else if (data.NombreUsuario == "")
+            {
+                httpResponse = ManejoMensajes.RetornaMensajeParametroVacio(httpResponse, EnumMensajes.Parametro_vacio_o_invalido, "Nombre Usuario Vacío");
+            }
+
             else
             {
                 string empleador = data.Empleador;
@@ -137,36 +168,51 @@ namespace RayenSalud.WebLun.Api.Controllers
                 //no requerido
                 string numero = "";
                 string restoDireccion = "";
+                //agregados para validar el token
+                string token = data.Token;
+                string nombreUsuario = data.NombreUsuario;
                 try
                 {
-                    if (data.Numero != null)
+                    //aca vamos a validar el token antes que realice las otras operaciones
+                    bool esValido = Negocio.Utiles.ValidarTokenSession(int.Parse(ecolId), nombreUsuario, token);
+                    if (esValido)
                     {
-                        numero = data.Numero;
-                    }
-
-                    if (data.RestoDireccion != null)
-                    {
-                        restoDireccion = data.RestoDireccion;
-                    }
-                    bool retorno = Negocio.Global.Global.ModificarENCO(empleador, int.Parse(idTipoContrato), int.Parse(idRegion), int.Parse(idComuna), int.Parse(ecolId), direccion, numero, restoDireccion, int.Parse(sobrecupo), int.Parse(totalLicencias));
-                    if (retorno)
-                    {
-                        //si esta correcto, ahora hay que retornar el nuevo elemento
-                        Entidad.Global.ContratanteLun contratante = Negocio.Global.Global.ObtenerContratanteLunPorId(int.Parse(ecolId));
-                        if (contratante != null && contratante.Id > 0)
+                        //el tokern es correcto
+                        if (data.Numero != null)
                         {
-                            httpResponse = ManejoMensajes.RetornaMensajeCorrecto(httpResponse, contratante);
+                            numero = data.Numero;
+                        }
+
+                        if (data.RestoDireccion != null)
+                        {
+                            restoDireccion = data.RestoDireccion;
+                        }
+                        bool retorno = Negocio.Global.Global.ModificarENCO(empleador, int.Parse(idTipoContrato), int.Parse(idRegion), int.Parse(idComuna), int.Parse(ecolId), direccion, numero, restoDireccion, int.Parse(sobrecupo), int.Parse(totalLicencias));
+                        if (retorno)
+                        {
+                            //si esta correcto, ahora hay que retornar el nuevo elemento
+                            Entidad.Global.ContratanteLun contratante = Negocio.Global.Global.ObtenerContratanteLunPorId(int.Parse(ecolId));
+                            if (contratante != null && contratante.Id > 0)
+                            {
+                                httpResponse = ManejoMensajes.RetornaMensajeCorrecto(httpResponse, contratante);
+                            }
+                            else
+                            {
+                                httpResponse = ManejoMensajes.RetornaMensajeError(httpResponse, 456, "No_existe_contratante");
+                            }
+
                         }
                         else
                         {
-                            httpResponse = ManejoMensajes.RetornaMensajeError(httpResponse, 456, "No_existe_contratante");
+                            httpResponse = ManejoMensajes.RetornaMensajeError(httpResponse, 8000, "Error al modificar Entidad Contratante");
                         }
-
                     }
                     else
                     {
-                        httpResponse = ManejoMensajes.RetornaMensajeError(httpResponse, 8000, "Error al modificar Entidad Contratante");
+                        //el token es incorrecto
+                        httpResponse = ManejoMensajes.RetornaMensajeError(httpResponse, EnumMensajes.Token_invalido);
                     }
+
                 }
                 catch(Exception ex)
                 {

@@ -25,3 +25,17 @@ C:\AGENDA_WEB\api\WebLunApi\RayenSalud.WebLun.Negocio\bin\Debug\NLog.Extensions.
 C:\AGENDA_WEB\api\WebLunApi\RayenSalud.WebLun.Negocio\obj\Debug\RayenSalud.WebLun.Negocio.csprojResolveAssemblyReference.cache
 C:\AGENDA_WEB\api\WebLunApi\RayenSalud.WebLun.Negocio\obj\Debug\RayenSalud.WebLun.Negocio.dll
 C:\AGENDA_WEB\api\WebLunApi\RayenSalud.WebLun.Negocio\obj\Debug\RayenSalud.WebLun.Negocio.pdb
+C:\Users\Brios.RAYENSALUD\Documents\weblun\WebLunApi\RayenSalud.WebLun.Negocio\bin\Debug\RayenSalud.WebLun.Negocio.dll
+C:\Users\Brios.RAYENSALUD\Documents\weblun\WebLunApi\RayenSalud.WebLun.Negocio\bin\Debug\RayenSalud.WebLun.Negocio.pdb
+C:\Users\Brios.RAYENSALUD\Documents\weblun\WebLunApi\RayenSalud.WebLun.Negocio\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Brios.RAYENSALUD\Documents\weblun\WebLunApi\RayenSalud.WebLun.Negocio\bin\Debug\NLog.dll
+C:\Users\Brios.RAYENSALUD\Documents\weblun\WebLunApi\RayenSalud.WebLun.Negocio\bin\Debug\NLog.Extensions.Logging.dll
+C:\Users\Brios.RAYENSALUD\Documents\weblun\WebLunApi\RayenSalud.WebLun.Negocio\bin\Debug\RayenSalud.WebLun.Entidad.dll
+C:\Users\Brios.RAYENSALUD\Documents\weblun\WebLunApi\RayenSalud.WebLun.Negocio\bin\Debug\RayenSalud.WebLun.Entidad.pdb
+C:\Users\Brios.RAYENSALUD\Documents\weblun\WebLunApi\RayenSalud.WebLun.Negocio\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\Brios.RAYENSALUD\Documents\weblun\WebLunApi\RayenSalud.WebLun.Negocio\bin\Debug\NLog.xml
+C:\Users\Brios.RAYENSALUD\Documents\weblun\WebLunApi\RayenSalud.WebLun.Negocio\bin\Debug\NLog.Extensions.Logging.xml
+C:\Users\Brios.RAYENSALUD\Documents\weblun\WebLunApi\RayenSalud.WebLun.Negocio\obj\Debug\RayenSalud.WebLun.Negocio.csprojResolveAssemblyReference.cache
+C:\Users\Brios.RAYENSALUD\Documents\weblun\WebLunApi\RayenSalud.WebLun.Negocio\obj\Debug\RayenSalud.WebLun.Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Brios.RAYENSALUD\Documents\weblun\WebLunApi\RayenSalud.WebLun.Negocio\obj\Debug\RayenSalud.WebLun.Negocio.dll
+C:\Users\Brios.RAYENSALUD\Documents\weblun\WebLunApi\RayenSalud.WebLun.Negocio\obj\Debug\RayenSalud.WebLun.Negocio.pdb
